@@ -27,3 +27,5 @@ Evaluating the number and characteristics of pieces (debris) can contribute to u
 ### Mission Lifetimes:
 
 Analyzing the lifetimes and end-of-mission statuses can help assess the longevity and success rates of different types of space missions.
+
+## Charts / Graphs
