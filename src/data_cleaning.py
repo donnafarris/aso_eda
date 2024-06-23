@@ -190,3 +190,37 @@ def df_dict_formatter(dataframe_dict: dict, col_name_dict_list: list[dict] = Non
         dataframe_dict[k] = fix_mixed_data_types(dataframe_dict[k])
         dataframe_dict[k] = null_handler(dataframe_dict[k])
     return dataframe_dict
+
+
+def identify_numeric_outliers(df):
+    """
+    Identifies outliers in numeric columns of a DataFrame using the IQR method.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to be processed.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing rows with outliers, including the column name and outlier value.
+    """
+    numeric_cols = df.select_dtypes(include='number').columns
+    outliers_list = []
+    for col in numeric_cols:
+        Q1 = df[col].quantile(0.25)
+        Q3 = df[col].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR
+        outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)].copy()
+        if not outliers.empty:
+            outliers['outlier_column'] = col
+            outliers['outlier_value'] = df[col]
+            outliers_list.append(outliers)
+
+    if outliers_list:
+        # Combine all outliers into a single DataFrame
+        outliers_combined = pd.concat(outliers_list).drop_duplicates()
+    else:
+        # Return an empty DataFrame if no outliers were found
+        outliers_combined = pd.DataFrame()
+
+    return outliers_combined
