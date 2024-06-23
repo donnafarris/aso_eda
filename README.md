@@ -33,8 +33,20 @@ Exploratory data analysis (EDA) on tracked artificial space objects (ASOs) to un
 
 The primary data sources for this project are:
 
-- [Celestrak](https://www.celestrak.com/NORAD/elements/)
+- [Celestrak](https://www.celestrak.com/)
+  - Data Download:
+  - [Raw SATCAT Data](https://celestrak.org/pub/satcat.csv)
+    - [Documentation](https://celestrak.org/satcat/satcat-format.php)
 - [GCAT (J. McDowell)](https://www.planet4589.org/space/gcat/)
+  - Data Downloads:
+    - [currentcat](https://planet4589.org/space/gcat/tsv/derived/currentcat.tsv)
+    - [launch](https://planet4589.org/space/gcat/tsv/launch/launch.tsv)
+    - [orgs](https://planet4589.org/space/gcat/tsv/tables/orgs.tsv)
+    - [psatcat](https://planet4589.org/space/gcat/tsv/cat/psatcat.tsv)
+    - [satcat](https://planet4589.org/space/gcat/tsv/cat/satcat.tsv)
+  - [Documentation](https://planet4589.org/space/gcat/web/cat/index.html)
+    - Note: Documentation for GCAT is partitioned based on category of data.
+  - There are many more sources of useful data available through GCAT than what was used for this analysis.
 
 ## Data Cleaning and Transformation
 
@@ -43,9 +55,10 @@ To ensure the reproducibility of results, the following steps were taken:
 1. **Data Collection:** Raw data was collected from the sources mentioned above.
 2. **Data Cleaning:**
    - Parsed all data into .csv format.
+     - Data from GCAT required dropping a line where the author had inserted a comment.
    - Removed duplicate entries.
-   - Filled or removed missing values.
-   - Ensured all columns contained only one data type whenever feasible.
+   - Filled or removed missing values where applicable.
+   - Ensured all columns contained only one data type.
    - Standardized date and time formats.
 3. **Data Transformation:**
    - Extracted relevant features such as launch date, country, and object type.
