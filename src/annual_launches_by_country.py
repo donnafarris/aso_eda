@@ -1,6 +1,6 @@
-import plotly.express as px
 from data_cleaning import col_val_mapper
-from constants import ALL_COL_RENAME_DICTS, LAUNCH_NATO_RENAME
+from helpers import display_bar_plot
+from constants import ALL_VAL_RENAME_DICTS
 
 
 def add_launch_country_col(launch_df, orgs_df):
@@ -19,7 +19,7 @@ def add_launch_country_col(launch_df, orgs_df):
         pd.DataFrame: The launch DataFrame with an added 'launch_country' column containing country names.
     """
     orgs_df = col_val_mapper(orgs_df, 'state_code',
-                             'state_name', ALL_COL_RENAME_DICTS)
+                             'state_name', ALL_VAL_RENAME_DICTS)
     # Create dict to map on
     orgs_df[['org_code', 'state_name']].to_dict(
         orient='split', index=False, into=dict)
@@ -55,8 +55,8 @@ def get_annual_launches_by_country(launch_df, orgs_df):
     launch_df = add_launch_country_col(launch_df, orgs_df)
     launch_df['launch_year'] = launch_df['Julian_Date'].dt.year
     # Add launch_entity column to group some countries by NATO affiliation
-    launch_df['launch_entity'] = launch_df['launch_country'].map(
-        LAUNCH_NATO_RENAME)
+    launch_df = col_val_mapper(
+        launch_df, 'launch_country', 'launch_entity', ALL_VAL_RENAME_DICTS)
     annual_launches = launch_df.groupby(
         ['launch_year', 'launch_entity']).size().reset_index(name='launch_count')
     # Only show entities with 1 or more launches
@@ -75,29 +75,11 @@ def display_annual_launches_by_org_plot(launch_df, orgs_df, png_path=None, html_
     Args:
         launch_df (pd.DataFrame): The DataFrame containing launch data with 'launch_code' and 'Julian_Date' columns.
         orgs_df (pd.DataFrame): The DataFrame containing organization data with 'org_code' and 'state_code' columns.
-        png_path (str, optional): The file path to save the plot as a PNG image.
-        html_path (str, optional): The file path to save the plot as an HTML file.
+        png_path (str, optional): The file path to save the plot as a PNG image. If None, the plot is not saved as a PNG.
+        html_path (str, optional): The file path to save the plot as an HTML file. If None, the plot is not saved as an HTML file.
 
     Returns:
         None: The function displays the plot and optionally saves it as a PNG and/or HTML file.
     """
-    fig = px.bar(get_annual_launches_by_country(launch_df, orgs_df), x='launch_year', y='launch_count', color='launch_entity',
-                 title='Annual Number of Launches',
-                 labels={'launch_year': 'Year',
-                         'launch_count': 'Number of Launches'},
-                 color_discrete_sequence=['#2c57c9', '#8d50d0', '#c95574', '#0b786c', '#ab7310', '#ca78cc'], opacity=0.8)
-    fig.update_layout(legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1
-    ), legend_title=None, template='plotly_dark')
-    # Show the plot
-    fig.show()
-    # Save as PNG
-    if png_path:
-        fig.write_image(png_path)
-    # Save as HTML
-    if html_path:
-        fig.write_html(html_path)
+    display_bar_plot(display_data=get_annual_launches_by_country(launch_df, orgs_df),
+                     color_col_name='launch_entity', title='Annual Number of Launches by Country', png_path=png_path, html_path=html_path)

@@ -1,5 +1,5 @@
 import pandas as pd
-import plotly.express as px
+from helpers import display_line_plot
 
 
 def get_launch_decay_orbit_over_time(df):
@@ -55,42 +55,16 @@ def display_sat_growth_over_time_plot(df, png_path=None, html_path=None):
 
     Args:
         df (pd.DataFrame): DataFrame containing satellite data with 'launch_date' and 'decay_date' columns.
-        png_path (str, optional): The file path to save the plot as a PNG image.
-        html_path (str, optional): The file path to save the plot as an HTML file.
+        png_path (str, optional): The file path to save the plot as a PNG image. If None, the plot is not saved as a PNG.
+        html_path (str, optional): The file path to save the plot as an HTML file. If None, the plot is not saved as an HTML file.
 
     Returns:
         None: The function displays the plot and optionally saves it as a PNG and/or HTML file.
     """
-    fig = px.line(
-        get_launch_decay_orbit_over_time(df),
-        x='month_year',
-        y=['on_orbit', 'launches', 'decayed_sats'],
-        labels={
-            'value': 'Count',
-            'month_year': 'Year'
-        },
-        title='Satellite Growth Over Time',
-        color_discrete_sequence=['#2c57c9', '#8d50d0', '#c95574']
-    )
-    fig.update_layout(legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1
-    ), legend_title=None, template='plotly_dark')
-    fig.update_traces(line={'width': 3})
-
-    # Show the plot
-    fig.show()
-
-    # Save as PNG
-    if png_path:
-        fig.write_image(png_path)
-
-    # Save as HTML
-    if html_path:
-        fig.write_html(html_path)
+    display_line_plot(display_data=get_launch_decay_orbit_over_time(df), x_col='month_year', y_col=['on_orbit', 'launches', 'decayed_sats'], labels={
+        'value': 'Count',
+        'month_year': 'Year'
+    }, title='Satellite Growth Over Time', color_sequence=['#2c57c9', '#8d50d0', '#c95574'], png_path=png_path, html_path=html_path)
 
 
 def get_starlink_vs_other_launches(df):
@@ -138,41 +112,13 @@ def display_starlink_vs_all_other_sats_plot(df, png_path=None, html_path=None):
 
     Args:
         df (pd.DataFrame): DataFrame containing satellite data with 'satellite_name', 'launch_year', and 'launch_month_year' columns.
-        png_path (str, optional): The file path to save the plot as a PNG image.
-        html_path (str, optional): The file path to save the plot as an HTML file.
+        png_path (str, optional): The file path to save the plot as a PNG image. If None, the plot is not saved as a PNG.
+        html_path (str, optional): The file path to save the plot as an HTML file. If None, the plot is not saved as an HTML file.
 
     Returns:
         None: The function displays the plot and optionally saves it as a PNG and/or HTML file.
     """
-    fig = px.line(
-        get_starlink_vs_other_launches(df),
-        x='launch_month_year',
-        y='launches',
-        color='type',
-        labels={
-            'launch_month_year': 'Year',
-            'launches': 'Number of Launches'
-        },
-        title='Number of Starlink vs All Other Satellite Launches',
-        color_discrete_sequence=['#2c57c9', '#c95574'])
-
-    fig.update_layout(legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1
-    ), legend_title=None, template='plotly_dark'
-    )
-    fig.update_traces(line={'width': 4})
-
-    # Show the plot
-    fig.show()
-
-    # Save as PNG
-    if png_path:
-        fig.write_image(png_path)
-
-    # Save as HTML
-    if html_path:
-        fig.write_html(html_path)
+    display_line_plot(display_data=get_starlink_vs_other_launches(df), x_col='launch_month_year', y_col='launches', labels={
+        'launch_month_year': 'Year',
+        'launches': 'Number of Launches'
+    }, title='Number of Starlink vs All Other Satellite Launches', color_sequence=['#2c57c9', '#c95574'], color_col='type', png_path=png_path, html_path=html_path)

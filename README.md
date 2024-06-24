@@ -70,15 +70,18 @@ To understand the distribution and trends of ASOs, the following visualizations 
 
 - Temporal trends in ASO launches.
 - Annual number of ASO launches by country.
-- Starlink satellites vs all other satellites
+- Starlink satellites vs all other satellites.
+- Satellite types launched over time.
 
 ### Visualization
 
-[![Satellite Growth Over Time](images/sat_growth.png)](https://donnafarris.github.io/aso_eda/)
+[![Satellite Growth Over Time](img/sat_growth.png)](https://donnafarris.github.io/aso_eda/)
 
-[![Annual Number of Launches By Country](images/annual_number_of_launches_by_country.png)](https://donnafarris.github.io/aso_eda/)
+[![Annual Number of Launches By Country](img/annual_number_of_launches_by_country.png)](https://donnafarris.github.io/aso_eda/)
 
-[![Starlink Vs. All Others](images/starlink_vs_all_others.png)](https://donnafarris.github.io/aso_eda/)
+[![Starlink Vs. All Others](img/starlink_vs_all_others.png)](https://donnafarris.github.io/aso_eda/)
+
+[![Satellite Types Launched Over Time](img/launches_by_sat_type.png)](https://donnafarris.github.io/aso_eda/)
 
 ## Key Insights
 

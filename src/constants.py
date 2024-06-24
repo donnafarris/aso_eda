@@ -139,21 +139,21 @@ PSATCAT_COL_NAMES = {
     'Comment': 'comment'
 }
 LAUNCH_NATO_RENAME = {
-    "Russia": "Russia",
-    "United States": "United States",
-    "China": "China",
-    "France": "NATO Ally",
-    "Japan": "Other",
-    "India": "Major Non-NATO Ally",
-    "New Zealand": "Other",
-    "ESA": "NATO Ally",
-    "Israel": "NATO Ally",
-    "Italy": "NATO Ally",
-    "Iran": "Other",
-    "South Korea": "Major Non-NATO Ally",
-    "Cayman Islands": "Other",
-    "North Korea": "Major Non-NATO Ally",
-    "United Kingdom": "NATO Ally"
+    'Russia': 'Russia',
+    'United States': 'United States',
+    'China': 'China',
+    'France': 'NATO Ally',
+    'Japan': 'Other',
+    'India': 'Major Non-NATO Ally',
+    'New Zealand': 'Other',
+    'ESA': 'NATO Ally',
+    'Israel': 'NATO Ally',
+    'Italy': 'NATO Ally',
+    'Iran': 'Other',
+    'South Korea': 'Major Non-NATO Ally',
+    'Cayman Islands': 'Other',
+    'North Korea': 'Major Non-NATO Ally',
+    'United Kingdom': 'NATO Ally'
 }
 LAUNCH_ORG_RENAME = {
     'US': 'United States', 'CN': 'China', 'J': 'Japan', 'RU': 'Russia', 'UK': 'United Kingdom', 'SU': 'Russia',
@@ -187,5 +187,26 @@ LAUNCH_ORG_RENAME = {
     'LY': 'Libya', 'LUNA': 'Luna', 'GRD': 'Grenada', 'I-RASC': 'RASC', 'I-ISS': 'ISS', 'I-CSC1': 'CSC', 'I-CSC': 'CSC',
     'GUF': 'French Guiana', 'GU': 'Guam', 'CSSR': 'Czechoslovakia'
 }
-ALL_COL_RENAME_DICTS = [LAUNCH_COL_NAMES,
-                        CELESTRAK_SATCAT_COL_NAMES, CURRENTCAT_COL_NAMES, LAUNCH_ORG_RENAME, LAUNCH_NATO_RENAME, LAUNCHLOG_COL_NAMES, ORGS_COL_NAMES, PSATCAT_COL_NAMES]
+SAT_CLASS_RENAME = {
+    'B': 'Commercial',
+    'D': 'Defense',
+    'C': 'Civil',
+    'A': 'Amateur',
+    'CD': 'Civil',
+    'BD': 'Commercial',
+    'CB': 'Civil',
+    'BC': 'Commercial'
+}
+ALL_COL_RENAME_DICTS = [
+    LAUNCH_COL_NAMES,
+    CELESTRAK_SATCAT_COL_NAMES,
+    CURRENTCAT_COL_NAMES,
+    LAUNCHLOG_COL_NAMES,
+    ORGS_COL_NAMES,
+    PSATCAT_COL_NAMES
+]
+ALL_VAL_RENAME_DICTS = [
+    SAT_CLASS_RENAME,
+    LAUNCH_ORG_RENAME,
+    LAUNCH_NATO_RENAME
+]

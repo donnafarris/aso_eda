@@ -73,7 +73,7 @@ def col_val_mapper(df, old_col_name, new_col_name, col_val_dict_list: list[dict]
         return df
     for d in col_val_dict_list:
         if (old_col_name in list(df.columns)) and (list(dict(df[old_col_name].value_counts()).keys()) == list(d.keys())):
-            df[new_col_name] = df[old_col_name].map(d)
+            df.loc[:, new_col_name] = df[old_col_name].map(d)
             return df
         else:
             continue
