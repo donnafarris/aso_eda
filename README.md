@@ -79,9 +79,9 @@ To understand the distribution and trends of ASOs, the following visualizations 
 
 [![Annual Number of Launches By Country](img/annual_number_of_launches_by_country.png)](https://donnafarris.github.io/aso_eda/)
 
-[![Starlink Vs. All Others](img/starlink_vs_all_others.png)](https://donnafarris.github.io/aso_eda/)
-
 [![Satellite Types Launched Over Time](img/launches_by_sat_type.png)](https://donnafarris.github.io/aso_eda/)
+
+[![Starlink Vs. All Others](img/starlink_vs_all_others.png)](https://donnafarris.github.io/aso_eda/)
 
 ## Key Insights
 
