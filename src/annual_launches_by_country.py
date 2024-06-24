@@ -20,9 +20,11 @@ def add_launch_country_col(launch_df, orgs_df):
     """
     orgs_df = col_val_mapper(orgs_df, 'state_code',
                              'state_name', ALL_COL_RENAME_DICTS)
+    # Create dict to map on
     orgs_df[['org_code', 'state_name']].to_dict(
         orient='split', index=False, into=dict)
     source_mapping = orgs_df.set_index('org_code')['state_name'].to_dict()
+    # Map the dict onto launch_agency to create the values for launch_country
     launch_df.loc[:, 'launch_country'] = launch_df['launch_agency'].map(
         source_mapping)
     return launch_df
@@ -46,13 +48,18 @@ def get_annual_launches_by_country(launch_df, orgs_df):
     # Ensure no missing values in essential columns
     launch_df = launch_df.dropna(subset=['launch_code', 'Julian_Date'])
     orgs_df = orgs_df.dropna(subset=['org_code', 'state_code'])
+    # 'O' in launch_code means the mission was orbital
+    # 'S' after 'O' indicates mission success
     launch_df = launch_df[launch_df['launch_code'].str.startswith('OS')].copy()
+    # Add country and launch_year columns to filter on
     launch_df = add_launch_country_col(launch_df, orgs_df)
     launch_df['launch_year'] = launch_df['Julian_Date'].dt.year
+    # Add launch_entity column to group some countries by NATO affiliation
     launch_df['launch_entity'] = launch_df['launch_country'].map(
         LAUNCH_NATO_RENAME)
     annual_launches = launch_df.groupby(
         ['launch_year', 'launch_entity']).size().reset_index(name='launch_count')
+    # Only show entities with 1 or more launches
     annual_launches = annual_launches[(annual_launches['launch_count'] > 0)]
     return annual_launches
 
