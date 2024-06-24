@@ -30,12 +30,14 @@ def display_bar_plot(display_data, color_col_name: str, title: str, png_path: st
         y=1.02,
         xanchor="right",
         x=1
-    ), legend_title=None, template='plotly_dark')
+    ), font=dict(
+        family="Courier New, monospace",
+        size=18), legend_title=None, template='plotly_dark')
     # Show the plot
     fig.show()
     # Save as PNG
     if png_path:
-        fig.write_image(png_path, engine="kaleido")
+        fig.write_image(png_path, engine="kaleido", width=1080, height=720)
     # Save as HTML
     if html_path:
         fig.write_html(html_path, full_html='False', include_plotlyjs='cdn')
@@ -78,7 +80,9 @@ def display_line_plot(display_data, x_col: str, y_col: str, labels: dict, color_
         y=1.02,
         xanchor="right",
         x=1
-    ), legend_title=None, template='plotly_dark'
+    ), font=dict(
+        family="Courier New, monospace",
+        size=18), legend_title=None, template='plotly_dark'
     )
     fig.update_traces(line={'width': 3})
 
@@ -87,7 +91,7 @@ def display_line_plot(display_data, x_col: str, y_col: str, labels: dict, color_
 
     # Save as PNG
     if png_path:
-        fig.write_image(png_path, engine="kaleido")
+        fig.write_image(png_path, engine="kaleido", width=1080, height=720)
 
     # Save as HTML
     if html_path:

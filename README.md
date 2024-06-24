@@ -86,7 +86,9 @@ To understand the distribution and trends of ASOs, the following visualizations 
 ## Key Insights
 
 - The majority of ASOs are launched by a few key countries, primarily the US, Russia, and China.
+- China has been ramping up their launch numbers in recent years.
 - There is a notable increase in the number of launches in recent years, driven by commercial satellite deployments.
+- Over half of the satellites launched since 2019 are Starlink satellites.
 
 ## Future Studies
 

@@ -10,9 +10,13 @@ tsv_to_csv(DATA_PATH)
 df_dict = csv_to_df_dict(DATA_PATH)
 df_dict = df_dict_formatter(df_dict, ALL_COL_RENAME_DICTS)
 satcat_df = df_dict['celestrak_satcat_df']
-display_sat_growth_over_time_plot(satcat_df)
-display_starlink_vs_all_other_sats_plot(satcat_df)
+display_sat_growth_over_time_plot(
+    satcat_df, png_path='../img/sat_growth.png', html_path='../img/sat_growth.html')
+display_starlink_vs_all_other_sats_plot(
+    satcat_df, png_path='../img/starlink_vs_all_others.png', html_path='../img/starlink_vs_all_others.html')
 launch_df, orgs_df = df_dict['launch_df'], df_dict['orgs_df']
-display_annual_launches_by_org_plot(launch_df, orgs_df)
+display_annual_launches_by_org_plot(
+    launch_df, orgs_df, png_path='../img/launches_by_country.png', html_path='../img/launches_by_country.html')
 psatcat_df = df_dict['psatcat_df']
-display_launch_count_by_sat_class_plot(psatcat_df)
+display_launch_count_by_sat_class_plot(
+    psatcat_df, png_path='../img/launches_by_sat_type.png', html_path='../img/launches_by_sat_type.html')
