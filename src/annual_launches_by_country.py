@@ -1,6 +1,6 @@
 import plotly.express as px
 from data_cleaning import col_val_mapper
-from constants import ALL_COL_RENAME_DICTS
+from constants import ALL_COL_RENAME_DICTS, LAUNCH_NATO_RENAME
 
 
 def add_launch_country_col(launch_df, orgs_df):
@@ -43,11 +43,16 @@ def get_annual_launches_by_country(launch_df, orgs_df):
     Returns:
         pd.DataFrame: A DataFrame with the annual count of satellite launches by country.
     """
+    # Ensure no missing values in essential columns
+    launch_df = launch_df.dropna(subset=['launch_code', 'Julian_Date'])
+    orgs_df = orgs_df.dropna(subset=['org_code', 'state_code'])
     launch_df = launch_df[launch_df['launch_code'].str.startswith('OS')].copy()
     launch_df = add_launch_country_col(launch_df, orgs_df)
     launch_df['launch_year'] = launch_df['Julian_Date'].dt.year
+    launch_df['launch_entity'] = launch_df['launch_country'].map(
+        LAUNCH_NATO_RENAME)
     annual_launches = launch_df.groupby(
-        ['launch_year', 'launch_country']).size().reset_index(name='launch_count')
+        ['launch_year', 'launch_entity']).size().reset_index(name='launch_count')
     annual_launches = annual_launches[(annual_launches['launch_count'] > 0)]
     return annual_launches
 
@@ -69,19 +74,18 @@ def display_annual_launches_by_org_plot(launch_df, orgs_df, png_path=None, html_
     Returns:
         None: The function displays the plot and optionally saves it as a PNG and/or HTML file.
     """
-    fig = px.bar(get_annual_launches_by_country(launch_df, orgs_df), x='launch_year', y='launch_count', color='launch_country',
+    fig = px.bar(get_annual_launches_by_country(launch_df, orgs_df), x='launch_year', y='launch_count', color='launch_entity',
                  title='Annual Number of Launches',
                  labels={'launch_year': 'Year',
                          'launch_count': 'Number of Launches'},
-                 color_discrete_sequence=['#2c57c9', '#8d50d0', '#c95574', '#0b786c', '#ab7310', '#ca78cc'], opacity=0.8,
-                 width=1100)
+                 color_discrete_sequence=['#2c57c9', '#8d50d0', '#c95574', '#0b786c', '#ab7310', '#ca78cc'], opacity=0.8)
     fig.update_layout(legend=dict(
         orientation="h",
         yanchor="bottom",
         y=1.02,
         xanchor="right",
         x=1
-    ), legend_title=None)
+    ), legend_title=None, template='plotly_dark')
     # Show the plot
     fig.show()
     # Save as PNG

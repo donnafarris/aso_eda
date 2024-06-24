@@ -78,7 +78,7 @@ def display_sat_growth_over_time_plot(df, png_path=None, html_path=None):
         y=1.02,
         xanchor="right",
         x=1
-    ), legend_title=None)
+    ), legend_title=None, template='plotly_dark')
     fig.update_traces(line={'width': 3})
 
     # Show the plot
@@ -162,7 +162,7 @@ def display_starlink_vs_all_other_sats_plot(df, png_path=None, html_path=None):
         y=1.02,
         xanchor="right",
         x=1
-    ), legend_title=None
+    ), legend_title=None, template='plotly_dark'
     )
     fig.update_traces(line={'width': 4})
 

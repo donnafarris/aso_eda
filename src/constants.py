@@ -139,22 +139,21 @@ PSATCAT_COL_NAMES = {
     'Comment': 'comment'
 }
 LAUNCH_NATO_RENAME = {
-    "SU": "Russia",
-    "US": "United States",
-    "RU": "Russia",
-    "CN": "China",
-    "F": "NATO Ally",
-    "J": "Other",
-    "IN": "Major Non-NATO Ally",
-    "NZ": "Other",
-    "I-ESA": "NATO Ally",
-    "IL": "NATO Ally",
-    "I": "NATO Ally",
-    "IR": "Other",
-    "KR": "Major Non-NATO Ally",
-    "CYM": "Other",
-    "KP": "Major Non-NATO Ally",
-    "UK": "NATO Ally"
+    "Russia": "Russia",
+    "United States": "United States",
+    "China": "China",
+    "France": "NATO Ally",
+    "Japan": "Other",
+    "India": "Major Non-NATO Ally",
+    "New Zealand": "Other",
+    "ESA": "NATO Ally",
+    "Israel": "NATO Ally",
+    "Italy": "NATO Ally",
+    "Iran": "Other",
+    "South Korea": "Major Non-NATO Ally",
+    "Cayman Islands": "Other",
+    "North Korea": "Major Non-NATO Ally",
+    "United Kingdom": "NATO Ally"
 }
 LAUNCH_ORG_RENAME = {
     'US': 'United States', 'CN': 'China', 'J': 'Japan', 'RU': 'Russia', 'UK': 'United Kingdom', 'SU': 'Russia',
