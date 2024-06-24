@@ -38,7 +38,7 @@ def display_bar_plot(display_data, color_col_name: str, title: str, png_path: st
         fig.write_image(png_path, engine="kaleido")
     # Save as HTML
     if html_path:
-        fig.write_html(html_path)
+        fig.write_html(html_path, full_html='False', include_plotlyjs='cdn')
 
 
 def display_line_plot(display_data, x_col: str, y_col: str, labels: dict, color_sequence: list[str], title: str, color_col: str = None, png_path: str = None, html_path: str = None):
@@ -91,4 +91,4 @@ def display_line_plot(display_data, x_col: str, y_col: str, labels: dict, color_
 
     # Save as HTML
     if html_path:
-        fig.write_html(html_path)
+        fig.write_html(html_path, full_html='False', include_plotlyjs='cdn')
