@@ -111,3 +111,12 @@ Evaluating the number and characteristics of pieces (debris) can contribute to u
 ### Mission Lifetimes:
 
 Analyzing the lifetimes and end-of-mission statuses can help assess the longevity and success rates of different types of space missions.
+
+---
+
+**Citations**
+
+McDowell, Jonathan C., 2020. General Catalog of Artificial Space Objects,
+Release 1.5.5 , https://planet4589.org/space/gcat
+
+CelesTrak. (n.d.). Satellite Catalog (SATCAT), https://celestrak.org/pub/satcat.csv
