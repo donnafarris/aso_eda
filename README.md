@@ -75,13 +75,13 @@ To understand the distribution and trends of ASOs, the following visualizations 
 
 ### Visualization
 
-[![Satellite Growth Over Time](img/sat_growth.png)](https://donnafarris.github.io/aso_eda/)
+[![Satellite Growth Over Time](img/sat_growth.png)](https://donnafarris.github.io/aso_eda/#:~:text=Satellite%20Growth%20Over,Count)
 
-[![Annual Number of Launches By Country](img/annual_number_of_launches_by_country.png)](https://donnafarris.github.io/aso_eda/)
+[![Annual Number of Launches By Country](img/annual_number_of_launches_by_country.png)](https://donnafarris.github.io/aso_eda/#:~:text=ASO%20Visualizations-,Annual%20Number%20of%20Launches%20by%20Country,Number%20of%20Launches,-Satellite%20Growth%20Over)
 
-[![Satellite Types Launched Over Time](img/launches_by_sat_type.png)](https://donnafarris.github.io/aso_eda/)
+[![Satellite Types Launched Over Time](img/launches_by_sat_type.png)](https://donnafarris.github.io/aso_eda/#:~:text=Count-,Annual%20Number%20of%20Launches%20by%20Satellite%20Type,Number%20of%20Launches,-Number%20of%20Starlink)
 
-[![Starlink Vs. All Others](img/starlink_vs_all_others.png)](https://donnafarris.github.io/aso_eda/)
+[![Starlink Vs. All Others](img/starlink_vs_all_others.png)](https://donnafarris.github.io/aso_eda/#:~:text=Number%20of%20Launches-,Number%20of%20Starlink%20vs%20All%20Other%20Satellite%20Launches,-Jan%202020)
 
 ## Key Insights
 
