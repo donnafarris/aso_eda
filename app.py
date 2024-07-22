@@ -1,10 +1,10 @@
 from joblib import load
 import streamlit as st
 import os
-from local import ARTIFACTS_PATH
-from sat_growth_over_time import get_sat_growth_over_time_plot, get_starlink_vs_all_other_sats_plot
-from annual_launches_by_country import get_annual_launches_by_org_plot
-from annual_launches_by_sat_type import get_launch_count_by_sat_class_plot
+from src.local import ARTIFACTS_PATH
+from src.sat_growth_over_time import get_sat_growth_over_time_plot, get_starlink_vs_all_other_sats_plot
+from src.annual_launches_by_country import get_annual_launches_by_org_plot
+from src.annual_launches_by_sat_type import get_launch_count_by_sat_class_plot
 
 
 @st.cache_data

@@ -1,10 +1,10 @@
-from data_cleaning import generate_data_artifacts, df_dict_formatter
-from local import ARTIFACTS_PATH, DATA_PATH
-from constants import ALL_COL_RENAME_DICTS
-from data_ingestion import tsv_to_csv, csv_to_df_dict
-from sat_growth_over_time import get_launch_decay_orbit_over_time, get_starlink_vs_other_launches
-from annual_launches_by_country import get_annual_launches_by_country
-from annual_launches_by_sat_type import get_launch_count_by_sat_class
+from src.data_cleaning import generate_data_artifacts, df_dict_formatter
+from src.local import ARTIFACTS_PATH, DATA_PATH
+from src.constants import ALL_COL_RENAME_DICTS
+from src.data_ingestion import tsv_to_csv, csv_to_df_dict
+from src.sat_growth_over_time import get_launch_decay_orbit_over_time, get_starlink_vs_other_launches
+from src.annual_launches_by_country import get_annual_launches_by_country
+from src.annual_launches_by_sat_type import get_launch_count_by_sat_class
 
 
 def get_data():
