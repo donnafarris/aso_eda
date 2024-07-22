@@ -1,5 +1,5 @@
 from data_cleaning import col_val_mapper
-from helpers import display_bar_plot
+from helpers import get_bar_plot, display_plot
 from constants import ALL_VAL_RENAME_DICTS
 
 
@@ -64,22 +64,35 @@ def get_annual_launches_by_country(launch_df, orgs_df):
     return annual_launches
 
 
-def display_annual_launches_by_org_plot(launch_df, orgs_df, png_path=None, html_path=None):
+def get_annual_launches_by_org_plot(display_data):
     """
-    Displays a bar plot of the annual number of satellite launches by country and optionally saves the plot as a PNG and HTML file.
+    Generate a bar plot showing the annual number of launches categorized by launch entity (country).
 
-    This function generates and displays a bar plot using Plotly Express, showing the annual number of satellite launches
-    for each country. It utilizes the `get_annual_launches_by_country` function to obtain the data, grouping by launch year 
-    and country. Optionally, it saves the plot as a PNG and/or HTML file if paths are provided.
-
-    Args:
-        launch_df (pd.DataFrame): The DataFrame containing launch data with 'launch_code' and 'Julian_Date' columns.
-        orgs_df (pd.DataFrame): The DataFrame containing organization data with 'org_code' and 'state_code' columns.
-        png_path (str, optional): The file path to save the plot as a PNG image. If None, the plot is not saved as a PNG.
-        html_path (str, optional): The file path to save the plot as an HTML file. If None, the plot is not saved as an HTML file.
+    Parameters:
+    display_data (DataFrame): The data to be plotted, containing columns for launch year, launch count, and launch entity.
 
     Returns:
-        None: The function displays the plot and optionally saves it as a PNG and/or HTML file.
+    Figure: A Plotly Figure object representing the annual number of launches by launch entity.
     """
-    display_bar_plot(display_data=get_annual_launches_by_country(launch_df, orgs_df),
-                     color_col_name='launch_entity', title='Annual Number of Launches by Country', png_path=png_path, html_path=html_path)
+    fig = get_bar_plot(
+        display_data=display_data,
+        color_col_name='launch_entity',
+        title='Annual Number of Launches by Country'
+    )
+    return fig
+
+
+def display_annual_launches_by_org_plot(display_data, png_path=None, html_path=None):
+    """
+    Display and optionally save the bar plot showing the annual number of launches by launch entity (country).
+
+    Parameters:
+    display_data (DataFrame): The data to be plotted.
+    png_path (str, optional): The file path to save the plot as a PNG image. Default is None.
+    html_path (str, optional): The file path to save the plot as an HTML file. Default is None.
+
+    Returns:
+    None
+    """
+    fig = get_annual_launches_by_org_plot(display_data)
+    display_plot(fig, png_path, html_path)

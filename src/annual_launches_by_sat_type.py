@@ -1,6 +1,6 @@
 from data_cleaning import col_val_mapper
 from constants import ALL_VAL_RENAME_DICTS
-from helpers import display_bar_plot
+from helpers import get_bar_plot, display_plot
 
 
 def get_launch_count_by_sat_class(psatcat_df):
@@ -30,21 +30,35 @@ def get_launch_count_by_sat_class(psatcat_df):
     return launch_count_by_sat_class
 
 
-def display_launch_count_by_sat_class_plot(psatcat_df, png_path=None, html_path=None):
+def get_launch_count_by_sat_class_plot(display_data):
     """
-    Displays and optionally saves a bar plot of the annual number of satellite launches categorized by satellite class.
+    Generate a bar plot showing the annual number of launches categorized by satellite type.
 
-    This function generates a bar plot using the Plotly library to visualize the annual number of satellite launches
-    by satellite class. It utilizes the `get_launch_count_by_sat_class` function to obtain the data, grouping by launch year
-    and satellite class. Optionally, it saves the plot as a PNG and/or HTML file if paths are providedl
-
-    Args:
-        psatcat_df (pd.DataFrame): The DataFrame containing satellite data with 'launch_date' and 'class' columns.
-        png_path (str, optional): The file path to save the plot as a PNG image. If None, the plot is not saved as a PNG.
-        html_path (str, optional): The file path to save the plot as an HTML file. If None, the plot is not saved as an HTML file.
+    Parameters:
+    display_data (DataFrame): The data to be plotted, containing columns for launch year, launch count, and satellite class.
 
     Returns:
-        None: The function displays the plot and optionally saves it as a PNG and/or HTML file.
+    Figure: A Plotly Figure object representing the annual number of launches by satellite type.
     """
-    display_bar_plot(display_data=get_launch_count_by_sat_class(psatcat_df),
-                     color_col_name='class', title='Annual Number of Launches by Satellite Type', png_path=png_path, html_path=html_path)
+    fig = get_bar_plot(
+        display_data=display_data,
+        color_col_name='class',
+        title='Annual Number of Launches by Satellite Type'
+    )
+    return fig
+
+
+def display_launch_count_by_sat_class_plot(display_data, png_path=None, html_path=None):
+    """
+    Display and optionally save the bar plot showing the annual number of launches by satellite type.
+
+    Parameters:
+    display_data (DataFrame): The data to be plotted.
+    png_path (str, optional): The file path to save the plot as a PNG image. Default is None.
+    html_path (str, optional): The file path to save the plot as an HTML file. Default is None.
+
+    Returns:
+    None
+    """
+    fig = get_launch_count_by_sat_class_plot(display_data)
+    display_plot(fig, png_path, html_path)

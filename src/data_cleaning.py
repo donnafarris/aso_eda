@@ -1,4 +1,5 @@
 import pandas as pd
+from joblib import dump
 
 
 def date_formatter(dataframe, columns: list[str]):
@@ -224,3 +225,18 @@ def identify_numeric_outliers(df):
         outliers_combined = pd.DataFrame()
 
     return outliers_combined
+
+
+def generate_data_artifacts(filepath, data):
+    """
+    Save data to a file using the joblib serialization format.
+
+    Parameters:
+    filepath (str): The path to the file where the data will be saved.
+    data (any): The data to be serialized and saved. This can be any Python object supported by the joblib module.
+
+    Returns:
+    None
+    """
+    with open(filepath, 'wb') as f:
+        dump(data, f, protocol=5)

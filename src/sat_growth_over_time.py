@@ -1,5 +1,5 @@
 import pandas as pd
-from helpers import display_line_plot
+from helpers import get_line_plot, display_plot
 
 
 def get_launch_decay_orbit_over_time(df):
@@ -45,26 +45,44 @@ def get_launch_decay_orbit_over_time(df):
     return merged_df
 
 
-def display_sat_growth_over_time_plot(df, png_path=None, html_path=None):
+def get_sat_growth_over_time_plot(display_data):
     """
-    Displays a line plot of satellite growth over time and optionally saves the plot.
+    Generate a line plot showing satellite growth over time.
 
-    This function generates and displays a line plot using Plotly Express, showing the cumulative number of satellites
-    on orbit, launches, and decayed satellites over time. The data is processed by the `get_launch_decay_orbit_over_time`
-    function. Optionally, it saves the plot as a PNG and/or HTML file if paths are provided.
-
-    Args:
-        df (pd.DataFrame): DataFrame containing satellite data with 'launch_date' and 'decay_date' columns.
-        png_path (str, optional): The file path to save the plot as a PNG image. If None, the plot is not saved as a PNG.
-        html_path (str, optional): The file path to save the plot as an HTML file. If None, the plot is not saved as an HTML file.
+    Parameters:
+    display_data (DataFrame): The data to be plotted, containing columns 'month_year', 'on_orbit', 'launches', and 'decayed_sats'.
 
     Returns:
-        None: The function displays the plot and optionally saves it as a PNG and/or HTML file.
+    Figure: A Plotly Figure object representing the satellite growth over time plot.
     """
-    display_line_plot(display_data=get_launch_decay_orbit_over_time(df), x_col='month_year', y_col=['on_orbit', 'launches', 'decayed_sats'], labels={
-        'value': 'Count',
-        'month_year': 'Year'
-    }, title='Satellite Growth Over Time', color_sequence=['#2c57c9', '#8d50d0', '#c95574'], png_path=png_path, html_path=html_path)
+    fig = get_line_plot(
+        display_data=display_data,
+        x_col='month_year',
+        y_col=['on_orbit', 'launches', 'decayed_sats'],
+        labels={
+            'value': 'Count',
+            'month_year': 'Year'
+        },
+        title='Satellite Growth Over Time',
+        color_sequence=['#2c57c9', '#8d50d0', '#c95574']
+    )
+    return fig
+
+
+def display_sat_growth_over_time_plot(display_data, png_path=None, html_path=None):
+    """
+    Display and optionally save the satellite growth over time plot.
+
+    Parameters:
+    display_data (DataFrame): The data to be plotted.
+    png_path (str, optional): The file path to save the plot as a PNG image. Default is None.
+    html_path (str, optional): The file path to save the plot as an HTML file. Default is None.
+
+    Returns:
+    None
+    """
+    fig = get_sat_growth_over_time_plot(display_data)
+    display_plot(fig, png_path, html_path)
 
 
 def get_starlink_vs_other_launches(df):
@@ -102,23 +120,42 @@ def get_starlink_vs_other_launches(df):
     return combined_launches
 
 
-def display_starlink_vs_all_other_sats_plot(df, png_path=None, html_path=None):
+def get_starlink_vs_all_other_sats_plot(display_data):
     """
-    Displays a line plot comparing the number of Starlink launches to all other satellite launches over time and optionally saves the plot.
+    Generate a line plot comparing Starlink launches versus all other satellite launches over time.
 
-    This function generates and displays a line plot using Plotly Express, showing the cumulative number of Starlink launches 
-    versus other satellite launches from the years after 2019. The data is processed by the `get_starlink_vs_other_launches` 
-    function. Optionally, it saves the plot as a PNG and/or HTML file if paths are provided.
-
-    Args:
-        df (pd.DataFrame): DataFrame containing satellite data with 'satellite_name', 'launch_year', and 'launch_month_year' columns.
-        png_path (str, optional): The file path to save the plot as a PNG image. If None, the plot is not saved as a PNG.
-        html_path (str, optional): The file path to save the plot as an HTML file. If None, the plot is not saved as an HTML file.
+    Parameters:
+    display_data (DataFrame): The data to be plotted, containing columns 'launch_month_year', 'launches', and 'type'.
 
     Returns:
-        None: The function displays the plot and optionally saves it as a PNG and/or HTML file.
+    Figure: A Plotly Figure object representing the comparison of Starlink and all other satellite launches over time.
     """
-    display_line_plot(display_data=get_starlink_vs_other_launches(df), x_col='launch_month_year', y_col='launches', labels={
-        'launch_month_year': 'Year',
-        'launches': 'Number of Launches'
-    }, title='Number of Starlink vs All Other Satellite Launches', color_sequence=['#2c57c9', '#c95574'], color_col='type', png_path=png_path, html_path=html_path)
+    fig = get_line_plot(
+        display_data=display_data,
+        x_col='launch_month_year',
+        y_col='launches',
+        labels={
+            'launch_month_year': 'Year',
+            'launches': 'Number of Launches'
+        },
+        title='Number of Starlink vs All Other Satellite Launches',
+        color_sequence=['#2c57c9', '#c95574'],
+        color_col='type'
+    )
+    return fig
+
+
+def display_starlink_vs_all_other_sats_plot(display_data, png_path=None, html_path=None):
+    """
+    Display and optionally save the plot comparing Starlink launches versus all other satellite launches.
+
+    Parameters:
+    display_data (DataFrame): The data to be plotted.
+    png_path (str, optional): The file path to save the plot as a PNG image. Default is None.
+    html_path (str, optional): The file path to save the plot as an HTML file. Default is None.
+
+    Returns:
+    None
+    """
+    fig = get_starlink_vs_all_other_sats_plot(display_data)
+    display_plot(fig, png_path, html_path)
