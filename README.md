@@ -3,7 +3,7 @@
 ### Table Of Contents
 
 - [ASO EDA: Analysis of Tracked Artificial Space Objects](#aso-eda-analysis-of-tracked-artificial-space-objects)
-  - [Table Of Contents](#table-of-contents)
+    - [Table Of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Project Proposal / Research Question](#project-proposal--research-question)
   - [Source of Data](#source-of-data)
@@ -75,13 +75,13 @@ To understand the distribution and trends of ASOs, the following visualizations 
 
 ### Visualization
 
-[![Satellite Growth Over Time](img/sat_growth.png)](https://donnafarris.github.io/aso_eda/#:~:text=Satellite%20Growth%20Over,Count)
+[![Satellite Growth Over Time](img/sat_growth.png)](https://donnafarris-aso-eda.streamlit.app/#launch_decay_orbit_over_time)
 
-[![Annual Number of Launches By Country](img/annual_number_of_launches_by_country.png)](https://donnafarris.github.io/aso_eda/#:~:text=ASO%20Visualizations-,Annual%20Number%20of%20Launches%20by%20Country,Number%20of%20Launches,-Satellite%20Growth%20Over)
+[![Annual Number of Launches By Country](img/annual_number_of_launches_by_country.png)](https://donnafarris-aso-eda.streamlit.app/#annual_launches_by_country)
 
-[![Satellite Types Launched Over Time](img/launches_by_sat_type.png)](https://donnafarris.github.io/aso_eda/#:~:text=Count-,Annual%20Number%20of%20Launches%20by%20Satellite%20Type,Number%20of%20Launches,-Number%20of%20Starlink)
+[![Satellite Types Launched Over Time](img/launches_by_sat_type.png)](https://donnafarris-aso-eda.streamlit.app/#launch_count_by_sat_class)
 
-[![Starlink Vs. All Others](img/starlink_vs_all_others.png)](https://donnafarris.github.io/aso_eda/#:~:text=Number%20of%20Launches-,Number%20of%20Starlink%20vs%20All%20Other%20Satellite%20Launches,-Jan%202020)
+[![Starlink Vs. All Others](img/starlink_vs_all_others.png)](https://donnafarris-aso-eda.streamlit.app/#starlink_vs_other_launches)
 
 ## Key Insights
 
