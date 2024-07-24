@@ -41,9 +41,9 @@ if __name__ == "__main__":
     if choice == "Home":
         st.write("Welcome to the Visualizations Dashboard!")
     else:
-        st.header(choice)
         plot_func = plot_functions[choice]
         filename = list(filenames.keys())[
             list(filenames.values()).index(choice)]
+        st.header(choice,anchor=filename)
         fig = plot_func(display_data=data[filename])
         st.plotly_chart(fig)
