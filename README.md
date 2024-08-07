@@ -1,9 +1,9 @@
-# ASO EDA: Analysis of Tracked Artificial Space Objects
+# ASO EDA: Tracked Artificial Space Objects Analysis & Status Prediction
 
 ### Table Of Contents
 
-- [ASO EDA: Analysis of Tracked Artificial Space Objects](#aso-eda-analysis-of-tracked-artificial-space-objects)
-    - [Table Of Contents](#table-of-contents)
+- [ASO EDA: Tracked Artificial Space Objects Analysis \& Status Prediction](#aso-eda-tracked-artificial-space-objects-analysis--status-prediction)
+  - [Table Of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Project Proposal / Research Question](#project-proposal--research-question)
   - [Source of Data](#source-of-data)
@@ -17,10 +17,14 @@
     - [Orbital Dynamics:](#orbital-dynamics)
     - [Space Debris:](#space-debris)
     - [Mission Lifetimes:](#mission-lifetimes)
+  - [Model Training and Prediction](#model-training-and-prediction)
+  - [Streamlit Application](#streamlit-application)
+  - [How to Run](#how-to-run)
+  - [Citations](#citations)
 
 ## Overview
 
-Exploratory data analysis (EDA) on tracked artificial space objects (ASOs) to uncover patterns, trends, and insights.
+This project involves exploratory data analysis (EDA) on tracked artificial space objects (ASOs) to uncover patterns, trends, and insights. It also includes training a machine learning model to predict the status of satellites based on their characteristics.
 
 ## Project Proposal / Research Question
 
@@ -28,6 +32,7 @@ Exploratory data analysis (EDA) on tracked artificial space objects (ASOs) to un
 - **Objectives:**
   - Analyze the distribution of ASOs by country and organization.
   - Identify temporal trends in ASO launches.
+  - Predict the status of satellites using machine learning techniques.
 
 ## Source of Data
 
@@ -112,11 +117,38 @@ Evaluating the number and characteristics of pieces (debris) can contribute to u
 
 Analyzing the lifetimes and end-of-mission statuses can help assess the longevity and success rates of different types of space missions.
 
----
+## Model Training and Prediction
 
-**Citations**
+A Random Forest classifier was trained to predict the status of satellites using various features such as total mass, span, orbital parameters, and object type. The model was tuned using GridSearchCV for optimal performance.
 
-McDowell, Jonathan C., 2020. General Catalog of Artificial Space Objects,
-Release 1.5.5 , https://planet4589.org/space/gcat
+## Streamlit Application
+
+A Streamlit application was developed to provide interactive visualizations of the dataset and to allow users to input satellite parameters and get status predictions.
+
+## How to Run
+
+1. **Start the FastAPI server:**
+
+   ```sh
+   uvicorn api:app --reload
+   ```
+
+2. **Start the Streamlit application:**
+
+   ```sh
+   streamlit run app.py
+   ```
+
+3. **Navigate to the Streamlit application in your web browser:**
+
+   ```sh
+   http://localhost:8501
+   ```
+
+4. **Use the Prediction Form to input satellite parameters and get status predictions.**
+
+## Citations
+
+McDowell, Jonathan C., 2020. General Catalog of Artificial Space Objects, Release 1.5.5 , https://planet4589.org/space/gcat
 
 CelesTrak. (n.d.). Satellite Catalog (SATCAT), https://celestrak.org/pub/satcat.csv

@@ -1,5 +1,5 @@
 data/
-
+artifacts/ran_for_model.joblib
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
