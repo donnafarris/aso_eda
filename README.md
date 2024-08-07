@@ -19,7 +19,7 @@
     - [Mission Lifetimes:](#mission-lifetimes)
   - [Model Training and Prediction](#model-training-and-prediction)
   - [Streamlit Application](#streamlit-application)
-  - [How to Run](#how-to-run)
+    - [Accessing the App](#accessing-the-app)
   - [Citations](#citations)
 
 ## Overview
@@ -125,27 +125,11 @@ A Random Forest classifier was trained to predict the status of satellites using
 
 A Streamlit application was developed to provide interactive visualizations of the dataset and to allow users to input satellite parameters and get status predictions.
 
-## How to Run
+### Accessing the App
 
-1. **Start the FastAPI server:**
+You can access the ASO EDA dashboard and prediction form online via Streamlit:
 
-   ```sh
-   uvicorn api:app --reload
-   ```
-
-2. **Start the Streamlit application:**
-
-   ```sh
-   streamlit run app.py
-   ```
-
-3. **Navigate to the Streamlit application in your web browser:**
-
-   ```sh
-   http://localhost:8501
-   ```
-
-4. **Use the Prediction Form to input satellite parameters and get status predictions.**
+[ASO EDA Dashboard](https://donnafarris-aso.streamlit.app/)
 
 ## Citations
 

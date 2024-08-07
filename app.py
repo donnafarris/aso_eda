@@ -56,12 +56,12 @@ if __name__ == "__main__":
         st.header("Prediction Form")
 
         with st.form(key='predict_form'):
-            total_mass = st.number_input("Total Mass", value=0.0)
-            span = st.number_input("Span", value=0.0)
-            period_mins = st.number_input("Period Minutes", value=0.0)
-            perigee_km = st.number_input("Perigee KM", value=0.0)
-            apogee_km = st.number_input("Apogee KM", value=0.0)
-            inclination = st.number_input("Inclination", value=0.0)
+            total_mass = st.number_input("Total Mass (kg)", value=0.0)
+            span = st.number_input("Span (m)", value=0.0)
+            period_mins = st.number_input("Period (minutes)", value=0.0)
+            perigee_km = st.number_input("Perigee (km)", value=0.0)
+            apogee_km = st.number_input("Apogee (km)", value=0.0)
+            inclination = st.number_input("Inclination (degrees)", value=0.0)
             object_type = st.selectbox("Object Type", options=[
                                        "PAY", "DEB", "R/B", "Unknown"])
 
