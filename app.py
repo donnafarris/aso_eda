@@ -37,7 +37,7 @@ plot_functions = {
 
 
 def get_prediction(payload):
-    url = 'http://localhost:8000/predict'
+    url = 'https://aso-status-prediction-api.onrender.com/predict'
     response = requests.post(url, json=payload)
     return response.json()
 
