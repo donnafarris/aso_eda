@@ -37,7 +37,7 @@ plot_functions = {
 
 
 def get_prediction(payload):
-    url = 'http://127.0.0.1:8000/predict'
+    url = 'http://localhost:8000/predict'
     response = requests.post(url, json=payload)
     return response.json()
 
