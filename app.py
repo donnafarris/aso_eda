@@ -56,29 +56,39 @@ if __name__ == "__main__":
         st.header("Prediction Form")
 
         with st.form(key='predict_form'):
-            total_mass = st.number_input("Total Mass (kg)", value=0.0)
-            span = st.number_input("Span (m)", value=0.0)
-            period_mins = st.number_input("Period (minutes)", value=0.0)
-            perigee_km = st.number_input("Perigee (km)", value=0.0)
-            apogee_km = st.number_input("Apogee (km)", value=0.0)
-            inclination = st.number_input("Inclination (degrees)", value=0.0)
-            object_type = st.selectbox("Object Type", options=[
-                                       "PAY", "DEB", "R/B", "Unknown"])
+            col1, col2 = st.columns(2)
+            with col1:
+                object_type = st.selectbox("Object Type", options=[
+                                           "PAY", "DEB", "R/B", "Unknown"])
+                total_mass = st.number_input(
+                    "Total Mass (kg)", value=0.0, help="Enter the total mass of the object in kilograms.")
+                span = st.number_input(
+                    "Span (m)", value=0.0, help="Enter the span of the object in meters.")
+            with col2:
+                period_mins = st.number_input(
+                    "Period (minutes)", value=0.0, help="Enter the orbital period in minutes.")
+                perigee_km = st.number_input(
+                    "Perigee (km)", value=0.0, help="Enter the perigee distance in kilometers.")
+                apogee_km = st.number_input(
+                    "Apogee (km)", value=0.0, help="Enter the apogee distance in kilometers.")
+                inclination = st.number_input(
+                    "Inclination (degrees)", value=0.0, help="Enter the orbital inclination in degrees.")
 
             submit_button = st.form_submit_button(label='Submit')
 
         if submit_button:
-            payload = {
-                "total_mass": total_mass,
-                "span": span,
-                "period_mins": period_mins,
-                "perigee_km": perigee_km,
-                "apogee_km": apogee_km,
-                "inclination": inclination,
-                "object_type": object_type
-            }
-            prediction = get_prediction(payload)
-            st.write("Prediction:", prediction)
+            with st.spinner('Calculating...'):
+                payload = {
+                    "total_mass": total_mass,
+                    "span": span,
+                    "period_mins": period_mins,
+                    "perigee_km": perigee_km,
+                    "apogee_km": apogee_km,
+                    "inclination": inclination,
+                    "object_type": object_type
+                }
+                prediction = get_prediction(payload)
+                st.success(f"Prediction: {prediction}")
 
     else:
         plot_func = plot_functions[choice]
