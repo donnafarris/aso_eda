@@ -132,7 +132,7 @@ def fix_mixed_data_types(df):
             return value
 
     for col, types in mixed_types.items():
-        if len(types) == 2 and str in types and float in types:
+        if len(types) <= 3 and str in types and float in types:
             # Attempt to convert 'str' values to 'float'
             df[col] = df[col].apply(lambda x: try_convert(
                 x) if isinstance(x, str) else x)
@@ -162,8 +162,11 @@ def null_handler(df):
                       columns with all nulls dropped, and duplicate rows removed.
     """
     df = df.replace('-', None)  # Convert '-' to nulls
+    df = df.replace('nan', None)  # Convert 'nan' to nulls
+
     # Drop columns where all values are null
     df = df.dropna(axis=1, how='all')
+    df = df.dropna(thresh=df.shape[1]-(df.shape[1] - 2), axis=0)
     df = df.drop_duplicates()
     return df
 

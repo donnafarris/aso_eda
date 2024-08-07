@@ -27,9 +27,52 @@ LAUNCH_COL_NAMES = {
     'Cite': 'additional_ref',
     'Notes': 'notes'
 }
+SATCAT_COL_NAMES = {
+    '#JCAT': 'JCAT_number',
+    'Satcat': 'Sat_catalog',
+    'Piece': 'piece_ID',
+    'Type': 'object_type',
+    'Name': 'object_name',
+    'PLName': 'payload_name',
+    'LDate': 'launch_date',
+    'Parent': 'parent_object',
+    'SDate': 'status_date',
+    'Primary': 'primary',
+    'DDate': 'phase_end_date',
+    'Status': 'status',
+    'Dest': 'destination',
+    'Owner': 'object_owner',
+    'State': 'object_state',
+    'Manufacturer': 'manufacturer',
+    'Bus': 'bus',
+    'Motor': 'motor',
+    'Mass': 'mass',
+    'MassFlag': 'mass_flag',
+    'DryMass': 'dry_mass',
+    'DryFlag': 'dry_flag',
+    'TotMass': 'total_mass',
+    'TotFlag': 'total_flag',
+    'Length': 'length',
+    'LFlag': 'length_flag',
+    'Diameter': 'diameter',
+    'DFlag': 'diameter_flag',
+    'Span': 'span',
+    'SpanFlag': 'span_flag',
+    'Shape': 'shape',
+    'ODate': 'orbit_date',
+    'Perigee': 'perigee_km',
+    'PF': 'perigee_flag',
+    'Apogee': 'apogee_km',
+    'AF': 'apogee_flag',
+    'Inc': 'inclination',
+    'IF': 'incl_flag',
+    'OpOrbit': 'oper_orbit',
+    'OQUAL': 'orbit_quality',
+    'AltNames': 'alternate_names'
+}
 CELESTRAK_SATCAT_COL_NAMES = {
     'OBJECT_NAME': 'satellite_name',
-    'OBJECT_ID': 'intl_designator',
+    'OBJECT_ID': 'piece_ID',
     'NORAD_CAT_ID': 'norad_id',
     'OBJECT_TYPE': 'object_type',
     'OPS_STATUS_CODE': 'ops_status',
@@ -127,12 +170,12 @@ PSATCAT_COL_NAMES = {
     'Mvr': 'maneuver',
     'Class': 'class',
     'Category': 'category',
-    'UNState': 'UN_state',
+    'UNState': 'owner_state',
     'UNReg': 'UN_reg',
-    'UNPeriod': 'UN_period',
-    'UNPerigee': 'UN_perigee',
-    'UNApogee': 'UN_apogee',
-    'UNInc': 'UN_incl',
+    'UNPeriod': 'period_km',
+    'UNPerigee': 'perigee_km',
+    'UNApogee': 'apogee_km',
+    'UNInc': 'inclination',
     'Result': 'result',
     'Control': 'control',
     'Discipline': 'discipline',
@@ -197,13 +240,34 @@ SAT_CLASS_RENAME = {
     'CB': 'Civil',
     'BC': 'Commercial'
 }
+OBJECT_ID_ORDER_PIECE_LETTER = {
+    1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G', 8: 'H', 9: 'J', 10: 'K',
+    11: 'L', 12: 'M', 13: 'N', 14: 'P', 15: 'Q', 16: 'R', 17: 'S', 18: 'T', 19: 'U', 20: 'V',
+    21: 'W', 22: 'X', 23: 'Y', 24: 'Z', 25: 'AA', 26: 'AB', 27: 'AC', 28: 'AD', 29: 'AE', 30: 'AF',
+    31: 'AG', 32: 'AH', 33: 'AJ', 34: 'AK', 35: 'AL', 36: 'AM', 37: 'AN', 38: 'AP', 39: 'AQ', 40: 'AR',
+    41: 'AS', 42: 'AT', 43: 'AU', 44: 'AV', 45: 'AW', 46: 'AX', 47: 'AY', 48: 'AZ', 49: 'BA', 50: 'BB',
+    51: 'BC', 52: 'BD', 53: 'BE', 54: 'BF', 55: 'BG', 56: 'BH', 57: 'BJ', 58: 'BK', 59: 'BL', 60: 'BM',
+    61: 'BN', 62: 'BP', 63: 'BQ', 64: 'BR', 65: 'BS', 66: 'BT', 67: 'BU', 68: 'BV', 69: 'BW', 70: 'BX',
+    71: 'BY', 72: 'BZ'
+}
+PIECE_ID_HARVARD_DESIGNATION_ORDER = {
+    1: 'ALP', 2: 'BET', 3: 'GAM', 4: 'DEL', 5: 'EPS', 6: 'ZET', 7: 'ETA', 8: 'THE', 9: 'IOT', 10: 'KAP',
+    11: 'LAM', 12: 'MU', 13: 'NU', 14: 'XI', 15: 'OMI', 16: 'PI', 17: 'RHO', 18: 'SIG', 19: 'TAU', 20: 'UPS',
+    21: 'PHI', 22: 'CHI', 23: 'PSI', 24: 'OME', 25: 'A ALP', 26: 'A BET', 27: 'A GAM', 28: 'A DEL', 29: 'A EPS', 30: 'A ZET',
+    31: 'A ETA', 32: 'A THE', 33: 'A IOT', 34: 'A KAP', 35: 'A LAM', 36: 'A MU', 37: 'A NU', 38: 'A XI', 39: 'A OMI', 40: 'A PI',
+    41: 'A RHO', 42: 'A SIG', 43: 'A TAU', 44: 'A UPS', 45: 'A PHI', 46: 'A CHI', 47: 'A PSI', 48: 'A OME', 49: 'B ALP', 50: 'B BET',
+    51: 'B GAM', 52: 'B DEL', 53: 'B EPS', 54: 'B ZET', 55: 'B ETA', 56: 'B THE', 57: 'B IOT', 58: 'B KAP', 59: 'B LAM', 60: 'B MU',
+    61: 'B NU', 62: 'B XI', 63: 'B OMI', 64: 'B PI', 65: 'B RHO', 66: 'B SIG', 67: 'B TAU', 68: 'B UPS', 69: 'B PHI', 70: 'B CHI',
+    71: 'B PSI', 72: 'B OME'
+}
 ALL_COL_RENAME_DICTS = [
     LAUNCH_COL_NAMES,
     CELESTRAK_SATCAT_COL_NAMES,
     CURRENTCAT_COL_NAMES,
     LAUNCHLOG_COL_NAMES,
     ORGS_COL_NAMES,
-    PSATCAT_COL_NAMES
+    PSATCAT_COL_NAMES,
+    SATCAT_COL_NAMES
 ]
 ALL_VAL_RENAME_DICTS = [
     SAT_CLASS_RENAME,
