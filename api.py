@@ -26,10 +26,9 @@ label_encoders = {
     'object_type': joblib.load(os.path.join(ARTIFACTS_PATH, 'object_type_label_encoder.joblib'))
 }
 
-# Define the input data model
-
 
 class PredictionRequest(BaseModel):
+    """Model to define the request body for prediction"""
     total_mass: float
     span: float
     period_mins: float
@@ -40,6 +39,16 @@ class PredictionRequest(BaseModel):
 
 
 def encode_features(data, label_encoders):
+    """
+    Encode categorical features using label encoders.
+
+    Args:
+        data (pd.DataFrame): DataFrame containing the input features.
+        label_encoders (dict): Dictionary of label encoders for categorical features.
+
+    Returns:
+        pd.DataFrame: DataFrame with encoded categorical features.
+    """
     for col, le in label_encoders.items():
         if data[col].values[0] not in le.classes_:
             # Handle unseen labels by adding them to the encoder
@@ -50,6 +59,15 @@ def encode_features(data, label_encoders):
 
 @app.post("/predict")
 def predict(data: PredictionRequest):
+    """
+    Predict the status of a satellite based on input features.
+
+    Args:
+        data (PredictionRequest): Input data for prediction.
+
+    Returns:
+        dict: Dictionary containing the predicted status.
+    """
     try:
         # Convert request data to DataFrame
         input_data = pd.DataFrame([data.dict()])

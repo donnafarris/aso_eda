@@ -14,10 +14,12 @@ st.set_page_config(page_title="Artificial Space Objects Dashboard")
 
 @st.cache_data
 def load_data(filepath):
+    """Load data from a joblib file."""
     with open(filepath, 'rb') as f:
         return load(f)
 
 
+# Dictionary to store filenames and their corresponding human-readable names
 filenames = {
     'launch_decay_orbit_over_time': 'Satellite Growth Over Time',
     'starlink_vs_other_launches': 'Starlink vs All Other Satellites',
@@ -25,9 +27,11 @@ filenames = {
     'launch_count_by_sat_class': 'Annual Number of Launches by Satellite Type'
 }
 
+# Load data for each visualization
 data = {key: load_data(os.path.join(ARTIFACTS_PATH, f"{key}.joblib"))
         for key in filenames.keys()}
 
+# Dictionary to map visualization names to their corresponding functions
 plot_functions = {
     "Satellite Growth Over Time": get_sat_growth_over_time_plot,
     "Starlink vs All Other Satellites": get_starlink_vs_all_other_sats_plot,
@@ -35,14 +39,36 @@ plot_functions = {
     "Annual Number of Launches by Satellite Type": get_launch_count_by_sat_class_plot
 }
 
+# Define the mapping of prediction values to string values
+status_mapping = {
+    'O': 'In orbit',
+    'D': 'Deorbited',
+    'DK': 'Docked',
+    'E': 'Exploded',
+    'ERR': 'No tracking data',
+    'L': 'Landed',
+    'N': 'Renamed',
+    'R': 'Reentered'
+}
+
 
 def get_prediction(payload):
+    """
+    Call the prediction API with the given payload.
+
+    Args:
+        payload (dict): Dictionary containing the input features.
+
+    Returns:
+        dict: API response containing the prediction.
+    """
     url = 'https://aso-status-prediction-api.onrender.com/predict'
     response = requests.post(url, json=payload)
     return response.json()
 
 
 def render_home():
+    """Render the home page with an introduction and overview."""
     st.title("Artificial Space Objects Dashboard")
     st.markdown("""
     Welcome to the Artificial Space Objects (ASO) Dashboard! This platform provides an in-depth look at the trends and patterns in the launch and distribution of artificial space objects over time.
@@ -84,6 +110,7 @@ def render_home():
 
 
 def render_prediction_form():
+    """Render the prediction form for user input and display the prediction result."""
     st.header("Prediction Form")
     with st.form(key='predict_form'):
         col1, col2 = st.columns(2)
@@ -118,10 +145,13 @@ def render_prediction_form():
                 "object_type": object_type
             }
             prediction = get_prediction(payload)
-            st.success(f"Prediction: {prediction}")
+            prediction_str = status_mapping.get(
+                prediction.get('prediction'), 'Unknown')
+            st.success(f"Prediction: {prediction_str}")
 
 
 def render_visualizations():
+    """Render the visualizations page for user to select and display different visualizations."""
     st.header("Visualizations")
     viz_choice = st.selectbox("Select a visualization",
                               list(plot_functions.keys()))
@@ -134,6 +164,7 @@ def render_visualizations():
 
 
 if __name__ == "__main__":
+    # Sidebar navigation
     page = st.sidebar.radio(
         "Go to", ["Home", "Prediction Form", "Visualizations"])
 

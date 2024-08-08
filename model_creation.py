@@ -10,11 +10,19 @@ import pandas as pd
 import sys
 import os
 
-# Add the parent directory to the Python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 
 def load_and_preprocess_data(file_path, features, target):
+    """
+    Load and preprocess the dataset.
+
+    Args:
+        file_path (str): The path to the CSV file containing the data.
+        features (list): List of feature column names.
+        target (str): The name of the target column.
+
+    Returns:
+        tuple: A tuple containing the preprocessed feature matrix (X), target vector (y), and label encoders.
+    """
     # Load the dataset
     data = pd.read_csv(file_path, low_memory=False)
 
@@ -60,6 +68,17 @@ def load_and_preprocess_data(file_path, features, target):
 
 
 def train_and_evaluate_model(X, y, param_grid):
+    """
+    Train and evaluate the model using GridSearchCV for hyperparameter tuning.
+
+    Args:
+        X (DataFrame): The feature matrix.
+        y (Series): The target vector.
+        param_grid (dict): The parameter grid for hyperparameter tuning.
+
+    Returns:
+        tuple: A tuple containing the trained model, scaler, best parameters, accuracy, confusion matrix, and classification report.
+    """
     # Splitting the dataset into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42)
@@ -99,6 +118,7 @@ def train_and_evaluate_model(X, y, param_grid):
 
 
 def main():
+    """Main function to load data, train the model, and save the trained model."""
     file_path = os.path.join(DATA_PATH, 'combined_df.csv')
     features = ['total_mass', 'span', 'period_mins', 'perigee_km', 'apogee_km',
                 'inclination', 'object_type']

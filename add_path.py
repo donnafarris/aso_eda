@@ -1,6 +1,5 @@
-"""
-code to add path
-"""
+# add_path.py
+# import this to handle src not found
 import sys
 
 
@@ -9,6 +8,7 @@ def add_dir_to_path(filepath="."):
 
     if filepath not in sys.path:
         sys.path.append(filepath)
+
 
 # just run it w/o INEM block
 # add "this" directory to path
