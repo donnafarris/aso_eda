@@ -71,15 +71,18 @@ def render_home():
     """Render the home page with an introduction and overview."""
     st.title("Artificial Space Objects Dashboard")
     st.markdown("""
-    Welcome to the Artificial Space Objects (ASO) Dashboard! This platform provides an in-depth look at the trends and patterns in the launch and distribution of artificial space objects over time.
+    ## Welcome!
+    Welcome to the **Artificial Space Objects (ASO) Dashboard**! This platform provides an in-depth look at the trends and patterns in the launch and distribution of artificial space objects over time.
 
     ### Overview
-    This project involves exploratory data analysis (EDA) on tracked artificial space objects (ASOs) to uncover patterns, trends, and insights. It also includes training a machine learning model to predict the status of satellites based on their characteristics.
+    This project involves:
+    - **Exploratory Data Analysis (EDA):** Uncovering patterns, trends, and insights from tracked artificial space objects (ASOs).
+    - **Predictive Modeling:** Training a machine learning model to predict the status of satellites based on their characteristics.
 
     ### Key Features
-    - **Analyze** the distribution of ASOs by country and organization.
-    - **Identify** temporal trends in ASO launches.
-    - **Predict** the status of satellites using machine learning techniques.
+    - **Analyze:** Distribution of ASOs by country and organization.
+    - **Identify:** Temporal trends in ASO launches.
+    - **Predict:** Satellite status using machine learning techniques.
 
     ### Data Sources
     Our primary data sources are:
@@ -90,23 +93,24 @@ def render_home():
     Explore various visualizations to gain insights into:
     - Temporal trends in ASO launches.
     - Annual number of ASO launches by country.
-    - Starlink satellites vs all other satellites.
+    - Starlink satellites vs. all other satellites.
     - Satellite types launched over time.
-
-    ### Future Studies
-    Potential areas for further research include:
-    - Trends in space launches.
-    - Technological advancements in spacecraft design.
-    - Orbital dynamics and preferred orbits for different missions.
-    - Space debris management.
-    - Mission lifetimes and success rates.
-
+                
     ### Prediction Model
-    A Random Forest classifier is trained to predict the status of satellites using features such as total mass, span, orbital parameters, and object type. The model is optimized using GridSearchCV.
+    Our model, a Random Forest classifier, is trained to predict the status of satellites using features such as total mass, span, orbital parameters, and object type. The model is able to predict satellite status with a 92.4 percent accuracy.
+
+    ### How to Use the App
+    - **Home:** This page provides an overview of the ASO Dashboard.
+    - **Prediction Form:** Use this form to input satellite characteristics and predict their status.
+    - **Visualizations:** Explore various visualizations to understand trends and patterns in ASO data.
 
     ### Access the App
-    Navigate through the app using the sidebar to explore data visualizations or use the prediction form to get satellite status predictions.
+    Navigate through the app using the sidebar to explore data visualizations or use the prediction form to get satellite status predictions. Enjoy your exploration!
     """)
+
+
+# st.image("https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2000/10/orbital_test_satellite_ots_-_artist_s_impression/9227956-5-eng-GB/Orbital_Test_Satellite_OTS_-_artist_s_impression.jpg",
+#          caption="Orbital Test Satellite - artist's impression (2002)")
 
 
 def render_prediction_form():
