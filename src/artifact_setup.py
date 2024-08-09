@@ -1,33 +1,24 @@
+# artifact_setup.py
 from src.data_cleaning import generate_data_artifacts, df_dict_formatter
-from src.local import ARTIFACTS_PATH, DATA_PATH
-from src.constants import ALL_COL_RENAME_DICTS
 from src.data_ingestion import tsv_to_csv, csv_to_df_dict
 from src.sat_growth_over_time import get_launch_decay_orbit_over_time, get_starlink_vs_other_launches
 from src.annual_launches_by_country import get_annual_launches_by_country
 from src.annual_launches_by_sat_type import get_launch_count_by_sat_class
+from src.local import ARTIFACTS_PATH, DATA_PATH
+from src.constants import ALL_COL_RENAME_DICTS
 
 
 def get_data():
     """
     Process and return a dictionary of data artifacts from various sources.
 
-    This function performs the following steps:
-    1. Converts TSV files to CSV format.
-    2. Loads CSV files into a dictionary of DataFrames.
-    3. Formats the DataFrames according to predefined column rename dictionaries.
-    4. Extracts specific DataFrames for further analysis.
-    5. Generates various data artifacts by performing analyses on the DataFrames.
-
     Returns:
-    dict: A dictionary containing the following key-value pairs:
-        - 'launch_decay_orbit_over_time': Data on launches, decays, and orbits over time.
-        - 'starlink_vs_other_launches': Data comparing Starlink launches to other satellite launches.
-        - 'annual_launches_by_country': Data on annual satellite launches categorized by country.
-        - 'launch_count_by_sat_class': Data on launch counts categorized by satellite class.
+        dict: A dictionary containing various data artifacts.
     """
     tsv_to_csv(DATA_PATH)
     df_dict = csv_to_df_dict(DATA_PATH)
     df_dict = df_dict_formatter(df_dict, ALL_COL_RENAME_DICTS)
+
     satcat_df = df_dict['celestrak_satcat_df']
     launch_df = df_dict['launch_df']
     orgs_df = df_dict['orgs_df']
@@ -52,11 +43,8 @@ def make_artifacts():
     """
     Generate and save data artifacts using joblib.
 
-    This function retrieves processed data by calling `get_data()` and saves each data artifact
-    as a joblib file in the specified artifacts directory.
-
     Returns:
-    None
+        None
     """
     data = get_data()
     for key, value in data.items():

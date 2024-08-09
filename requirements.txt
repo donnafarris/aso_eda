@@ -1,4 +1,7 @@
+fastapi
+uvicorn
 joblib
 pandas
-plotly
+scikit-learn
 streamlit
+plotly
