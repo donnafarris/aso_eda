@@ -1,5 +1,5 @@
 # data_cleaning.py
-import pandas as pd
+from pandas import to_datetime, concat, _libs, DataFrame
 from joblib import dump
 
 
@@ -17,10 +17,10 @@ def date_formatter(dataframe, columns):
     for c in columns:
         if 'datetime' not in str(type(dataframe.dtypes[c])).lower():
             if ('_jd' in c.lower()) or ('julian_date' in c.lower()):
-                dataframe[c] = pd.to_datetime(
+                dataframe[c] = to_datetime(
                     dataframe[c], unit='D', origin='julian')
             elif (('date' in c.lower()) or ('time' in c.lower())) and 'flag' not in c.lower():
-                dataframe[c] = pd.to_datetime(
+                dataframe[c] = to_datetime(
                     dataframe[c], errors='coerce', format='mixed')
     return dataframe
 
@@ -78,8 +78,8 @@ def check_mixed_types(df):
         dict: A dictionary where keys are column names and values are arrays of unique data types found in those columns.
     """
     mixed_types_columns = {}
-    timestamp_type = pd._libs.tslibs.timestamps.Timestamp
-    nat_type = pd._libs.tslibs.nattype.NaTType
+    timestamp_type = _libs.tslibs.timestamps.Timestamp
+    nat_type = _libs.tslibs.nattype.NaTType
     for col in df.columns:
         types = df[col].map(type).unique().tolist()
         if len(types) > 1:
@@ -175,9 +175,9 @@ def identify_numeric_outliers(df):
             outliers['outlier_value'] = df[col]
             outliers_list.append(outliers)
     if outliers_list:
-        outliers_combined = pd.concat(outliers_list).drop_duplicates()
+        outliers_combined = concat(outliers_list).drop_duplicates()
     else:
-        outliers_combined = pd.DataFrame()
+        outliers_combined = DataFrame()
     return outliers_combined
 
 

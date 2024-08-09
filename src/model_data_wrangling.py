@@ -1,7 +1,7 @@
 # model_data_wrangling.py
-import pandas as pd
+from pandas import read_csv, isna, notna
 import re
-import joblib
+from joblib import dump
 from src.data_cleaning import date_formatter, col_renaming_mapper, fix_mixed_data_types, null_handler, check_mixed_types
 from src.local import DATA_PATH, ARTIFACTS_PATH
 
@@ -54,7 +54,7 @@ def load_dataframe(datapath, filename):
     Returns:
         pd.DataFrame: The loaded DataFrame.
     """
-    return pd.read_csv(f'{datapath}{filename}', low_memory=False)
+    return read_csv(f'{datapath}{filename}', low_memory=False)
 
 
 def apply_cleaning_steps(df, col_rename_map):
@@ -163,7 +163,7 @@ def fill_object_type(row):
     Returns:
         str: The filled 'object_type' value.
     """
-    if pd.isna(row['object_type']) and pd.notna(row['sat_type']):
+    if isna(row['object_type']) and notna(row['sat_type']):
         if row['sat_type'].startswith('P'):
             return 'PAY'
         elif row['sat_type'].startswith('D') or row['sat_type'].startswith('C'):
@@ -296,4 +296,4 @@ combined_df = combined_df[~combined_df['status'].isin(statuses_to_drop)]
 combined_df.to_csv(f'{DATA_PATH}combined_df.csv', index=False)
 
 # Save the cleaned and combined DataFrame to a .joblib file
-joblib.dump(combined_df, f'{ARTIFACTS_PATH}combined_df.joblib')
+dump(combined_df, f'{ARTIFACTS_PATH}combined_df.joblib')

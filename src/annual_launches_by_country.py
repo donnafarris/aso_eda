@@ -1,5 +1,5 @@
 # annual_launches_by_country.py
-import pandas as pd
+from pandas import to_datetime
 from src.data_cleaning import col_val_mapper
 from src.helpers import get_bar_plot, display_plot
 from src.constants import ALL_VAL_RENAME_DICTS
@@ -39,7 +39,7 @@ def get_annual_launches_by_country(launch_df, orgs_df):
     orgs_df = orgs_df.dropna(subset=['org_code', 'state_code'])
     launch_df = launch_df[launch_df['launch_code'].str.startswith('OS')].copy()
     launch_df = add_launch_country_col(launch_df, orgs_df)
-    launch_df['launch_year'] = pd.to_datetime(launch_df['Julian_Date']).dt.year
+    launch_df['launch_year'] = to_datetime(launch_df['Julian_Date']).dt.year
     launch_df = col_val_mapper(
         launch_df, 'launch_country', 'launch_entity', ALL_VAL_RENAME_DICTS)
     annual_launches = launch_df.groupby(

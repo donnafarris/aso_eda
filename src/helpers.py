@@ -1,5 +1,5 @@
 # helpers.py
-import plotly.express as px
+from plotly.express import bar, line
 
 
 def get_bar_plot(display_data, color_col_name, title):
@@ -14,10 +14,10 @@ def get_bar_plot(display_data, color_col_name, title):
     Returns:
         plotly.graph_objs._figure.Figure: A Plotly Figure object representing the bar plot.
     """
-    fig = px.bar(display_data, x='launch_year', y='launch_count', color=color_col_name,
-                 title=title, labels={'launch_year': 'Year',
-                                      'launch_count': 'Number of Launches'},
-                 color_discrete_sequence=['#2c57c9', '#8d50d0', '#c95574', '#0b786c', '#ab7310', '#ca78cc'], opacity=0.8)
+    fig = bar(display_data, x='launch_year', y='launch_count', color=color_col_name,
+              title=title, labels={'launch_year': 'Year',
+                                   'launch_count': 'Number of Launches'},
+              color_discrete_sequence=['#2c57c9', '#8d50d0', '#c95574', '#0b786c', '#ab7310', '#ca78cc'], opacity=0.8)
     fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
                       font=dict(family="Courier New, monospace", size=18), legend_title=None, template='plotly_dark')
     return fig
@@ -39,8 +39,8 @@ def get_line_plot(display_data, x_col, y_col, labels, color_sequence, title, col
     Returns:
         plotly.graph_objs._figure.Figure: A Plotly Figure object representing the line plot.
     """
-    fig = px.line(display_data, x=x_col, y=y_col, labels=labels, title=title,
-                  color=color_col, color_discrete_sequence=color_sequence)
+    fig = line(display_data, x=x_col, y=y_col, labels=labels, title=title,
+               color=color_col, color_discrete_sequence=color_sequence)
     fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
                       font=dict(family="Courier New, monospace", size=18), legend_title=None, template='plotly_dark')
     fig.update_traces(line={'width': 3})

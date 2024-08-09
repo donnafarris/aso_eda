@@ -1,29 +1,28 @@
 # api.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import joblib
-import pandas as pd
-import numpy as np
-import os
-
+from joblib import load
+from pandas import DataFrame
+from numpy import append
+from os import path
 app = FastAPI()
 
 # Define the path to the artifacts and model
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ARTIFACTS_PATH = os.path.join(BASE_DIR, 'artifacts')
-MODEL_PATH = os.path.join(ARTIFACTS_PATH, 'ran_for_model.joblib')
-SCALER_PATH = os.path.join(ARTIFACTS_PATH, 'scaler.joblib')
-STATUS_MAPPING_PATH = os.path.join(ARTIFACTS_PATH, 'status_mapping.joblib')
+BASE_DIR = path.dirname(path.abspath(__file__))
+ARTIFACTS_PATH = path.join(BASE_DIR, 'artifacts')
+MODEL_PATH = path.join(ARTIFACTS_PATH, 'ran_for_model.joblib')
+SCALER_PATH = path.join(ARTIFACTS_PATH, 'scaler.joblib')
+STATUS_MAPPING_PATH = path.join(ARTIFACTS_PATH, 'status_mapping.joblib')
 
 # Load the model and preprocessing objects
-model = joblib.load(MODEL_PATH)
-scaler = joblib.load(SCALER_PATH)
-status_mapping = joblib.load(STATUS_MAPPING_PATH)
+model = load(MODEL_PATH)
+scaler = load(SCALER_PATH)
+status_mapping = load(STATUS_MAPPING_PATH)
 status_mapping_inv = {v: k for k, v in status_mapping.items()}
 
 # Load label encoders
 label_encoders = {
-    'object_type': joblib.load(os.path.join(ARTIFACTS_PATH, 'object_type_label_encoder.joblib'))
+    'object_type': load(path.join(ARTIFACTS_PATH, 'object_type_label_encoder.joblib'))
 }
 
 
@@ -52,7 +51,7 @@ def encode_features(data, label_encoders):
     for col, le in label_encoders.items():
         if data[col].values[0] not in le.classes_:
             # Handle unseen labels by adding them to the encoder
-            le.classes_ = np.append(le.classes_, data[col].values[0])
+            le.classes_ = append(le.classes_, data[col].values[0])
         data[col] = le.transform(data[col])
     return data
 
@@ -70,7 +69,7 @@ def predict(data: PredictionRequest):
     """
     try:
         # Convert request data to DataFrame
-        input_data = pd.DataFrame([data.dict()])
+        input_data = DataFrame([data.dict()])
 
         # Encode categorical features
         input_data = encode_features(input_data, label_encoders)

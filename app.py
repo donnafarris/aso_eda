@@ -1,7 +1,7 @@
 # app.py
 from joblib import load
 import streamlit as st
-import os
+from os import path
 import add_path
 import requests
 from src.annual_launches_by_sat_type import get_launch_count_by_sat_class_plot
@@ -28,7 +28,7 @@ filenames = {
 }
 
 # Load data for each visualization
-data = {key: load_data(os.path.join(ARTIFACTS_PATH, f"{key}.joblib"))
+data = {key: load_data(path.join(ARTIFACTS_PATH, f"{key}.joblib"))
         for key in filenames.keys()}
 
 # Dictionary to map visualization names to their corresponding functions

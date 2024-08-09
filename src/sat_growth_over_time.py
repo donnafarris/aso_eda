@@ -1,5 +1,5 @@
 # sat_growth_over_time.py
-import pandas as pd
+from pandas import to_datetime, merge, concat
 from src.helpers import get_line_plot, display_plot
 
 
@@ -13,21 +13,21 @@ def get_launch_decay_orbit_over_time(df):
     Returns:
         pd.DataFrame: A DataFrame with cumulative counts of launches, decays, and satellites on orbit over time.
     """
-    df['launch_year'] = pd.to_datetime(df['launch_date']).dt.year
-    df['launch_month_year'] = pd.to_datetime(
+    df['launch_year'] = to_datetime(df['launch_date']).dt.year
+    df['launch_month_year'] = to_datetime(
         df['launch_date']).dt.to_period('M').astype(str)
     launches_over_time = df.groupby(
         ['launch_month_year']).size().reset_index(name='launch_count')
     launches_over_time['launches'] = launches_over_time['launch_count'].cumsum()
 
-    df['decay_month_year'] = pd.to_datetime(
+    df['decay_month_year'] = to_datetime(
         df['decay_date']).dt.to_period('M').astype(str)
     decays_over_time = df.dropna(subset=['decay_date']).groupby(
         ['decay_month_year']).size().reset_index(name='decay_count')
     decays_over_time['decayed_sats'] = decays_over_time['decay_count'].cumsum()
 
-    merged_df = pd.merge(launches_over_time, decays_over_time,
-                         on='month_year', how='outer').fillna(0)
+    merged_df = merge(launches_over_time, decays_over_time,
+                      on='month_year', how='outer').fillna(0)
     merged_df['on_orbit'] = (
         merged_df['launch_count'] - merged_df['decay_count']).cumsum()
     return merged_df
@@ -92,7 +92,7 @@ def get_starlink_vs_other_launches(df):
         'launch_month_year').size().cumsum().reset_index(name='launches')
     other_launches['type'] = 'Other'
 
-    combined_launches = pd.concat([starlink_launches, other_launches])
+    combined_launches = concat([starlink_launches, other_launches])
     return combined_launches
 
 

@@ -1,5 +1,5 @@
 # annual_launches_by_sat_type.py
-import pandas as pd
+from pandas import to_datetime
 from src.data_cleaning import col_val_mapper
 from src.constants import ALL_VAL_RENAME_DICTS
 from src.helpers import get_bar_plot, display_plot
@@ -17,7 +17,7 @@ def get_launch_count_by_sat_class(psatcat_df):
                       The DataFrame has columns: 'launch_year', 'class', and 'launch_count'.
     """
     psatcat_df = psatcat_df.dropna(subset=['class', 'launch_date']).copy()
-    psatcat_df['launch_year'] = pd.to_datetime(
+    psatcat_df['launch_year'] = to_datetime(
         psatcat_df['launch_date']).dt.year
     psatcat_df = col_val_mapper(
         psatcat_df, 'class', 'class', ALL_VAL_RENAME_DICTS)

@@ -1,14 +1,13 @@
 # model_creation.py
 from src.local import ARTIFACTS_PATH, DATA_PATH
-import joblib
+from joblib import dump
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split, GridSearchCV
-import pandas as pd
-import sys
-import os
+from pandas import read_csv
+from os import path
 
 
 def load_and_preprocess_data(file_path, features, target):
@@ -24,7 +23,7 @@ def load_and_preprocess_data(file_path, features, target):
         tuple: A tuple containing the preprocessed feature matrix (X), target vector (y), and label encoders.
     """
     # Load the dataset
-    data = pd.read_csv(file_path, low_memory=False)
+    data = read_csv(file_path, low_memory=False)
 
     # Handling missing values
     imputer = SimpleImputer(strategy='most_frequent')
@@ -42,8 +41,8 @@ def load_and_preprocess_data(file_path, features, target):
 
     # Save the label encoders for later use
     for col, le in label_encoders.items():
-        joblib.dump(le, os.path.join(ARTIFACTS_PATH,
-                    f'{col}_label_encoder.joblib'))
+        dump(le, path.join(ARTIFACTS_PATH,
+                           f'{col}_label_encoder.joblib'))
 
     # Create a status mapping dynamically to include all unique statuses
     unique_statuses = data[target].unique()
@@ -58,7 +57,7 @@ def load_and_preprocess_data(file_path, features, target):
             "The 'status' column contains NaN values after mapping.")
 
     # Save the status mapping for later use
-    joblib.dump(status_mapping, os.path.join(
+    dump(status_mapping, path.join(
         ARTIFACTS_PATH, 'status_mapping.joblib'))
 
     X = data[features]
@@ -89,7 +88,7 @@ def train_and_evaluate_model(X, y, param_grid):
     X_test = scaler.transform(X_test)
 
     # Save the scaler for later use
-    joblib.dump(scaler, os.path.join(ARTIFACTS_PATH, 'scaler.joblib'))
+    dump(scaler, path.join(ARTIFACTS_PATH, 'scaler.joblib'))
 
     # Initialize the Random Forest classifier
     rf = RandomForestClassifier(random_state=42)
@@ -119,7 +118,7 @@ def train_and_evaluate_model(X, y, param_grid):
 
 def main():
     """Main function to load data, train the model, and save the trained model."""
-    file_path = os.path.join(DATA_PATH, 'combined_df.csv')
+    file_path = path.join(DATA_PATH, 'combined_df.csv')
     features = ['total_mass', 'span', 'period_mins', 'perigee_km', 'apogee_km',
                 'inclination', 'object_type']
     target = 'status'
@@ -140,8 +139,8 @@ def main():
         X, y, param_grid)
 
     # Save the trained model to a file using joblib
-    model_path = os.path.join(ARTIFACTS_PATH, 'ran_for_model.joblib')
-    joblib.dump(best_rf, model_path)
+    model_path = path.join(ARTIFACTS_PATH, 'ran_for_model.joblib')
+    dump(best_rf, model_path)
     print(f"Model saved to {model_path}")
     print(f"Best Parameters: {best_params}")
     print(f"Accuracy: {accuracy}")
